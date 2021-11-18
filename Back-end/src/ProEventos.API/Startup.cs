@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using ProEventos.API.Data;
 
 namespace ProEventos.API
 {
@@ -24,7 +26,7 @@ namespace ProEventos.API
         /// <param name="configuration"> [Aula.175] -> IConfiguration </param>
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = configuration; // [Aula.192] → O configuration consegue acessar o appsettings.json.
         }
 
         public IConfiguration Configuration { get; } // [Aula.175] -> Propriedade.
@@ -32,6 +34,10 @@ namespace ProEventos.API
         // [Aula.175] -> Este método é chamado pelo tempo de execução. Use este método para adicionar serviços ao contêiner.
         public void ConfigureServices(IServiceCollection services)
         {
+            // [Aula.192] → Após criar o context deve ser informado. Aqui informa qual o contexto que deverá ser utilizado.
+            services.AddDbContext<DataContext>(
+                context => context.UseSqlite(Configuration.GetConnectionString("Default")) // [Aula.192] Faz a conexão como banco de dados.
+            );
 
             services.AddControllers(); // [Aula.175] -> Aqui é onde informa que esta trabalhando com a arquiterua MVC. Chamada da "Controller".
             // [Aula.175] -> Forma de dizer que vai utilizar o "Swagger" na aplicação.
