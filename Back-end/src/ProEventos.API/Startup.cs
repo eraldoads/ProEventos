@@ -41,6 +41,10 @@ namespace ProEventos.API
 
             services.AddControllers(); // [Aula.175] -> Aqui é onde informa que esta trabalhando com a arquiterua MVC. Chamada da "Controller".
             // [Aula.175] -> Forma de dizer que vai utilizar o "Swagger" na aplicação.
+
+            // [Aula.206] -> Corrigindo o problema de CORS
+            services.AddCors();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProEventos.API", Version = "v1" });
@@ -68,6 +72,15 @@ namespace ProEventos.API
             app.UseRouting(); // [Aula.175] -> Uso de Rotas. Chama o "Controller".
 
             app.UseAuthorization();
+
+            /*  [Aula.206] -> Corrigindo o problema de CORS, permitir o acesso.
+                Permitindo qualquer configuração de cabeçalho (Header) da requisição do HTTP, 
+                vinda de qualquer método (Method), ou seja, GET | POST | PUT | DELETE | PATCH...
+                e, vinda de qualquer origem (Origin), vai ser permitida todas as requisições aqui.
+            */ 
+            app.UseCors(acesso => acesso.AllowAnyHeader()
+                                        .AllowAnyMethod()
+                                        .AllowAnyOrigin());
 
             // [Aula.175] -> Uso de determinados endpoints para as rotas.
             app.UseEndpoints(endpoints =>

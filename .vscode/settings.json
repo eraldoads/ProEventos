@@ -2,23 +2,53 @@
     "workbench.colorCustomizations": {
         "activityBar.activeBackground": "#1e1f1c",
         "activityBar.activeBorder": "#00ff2a",
+        "activityBar.inactiveForeground": "#1e1f1c",
         "activityBar.background": "#00ff2a",
         "activityBar.foreground": "#e7e7e7",
-        "activityBar.inactiveForeground": "#1e1f1c",
+        "activityBar.border": "#00ff2a",
         "activityBarBadge.background": "#1e1f1c",
         "activityBarBadge.foreground": "#e7e7e7",
+        
         "statusBar.background": "#151614",
         "statusBar.foreground": "#e7e7e7",
-        "statusBarItem.hoverBackground": "#00ff2a",
+        "statusBar.border": "#00ff2a",
+        "statusBarItem.hoverBackground": "#036600",
+        "statusBarItem.remoteBackground": "#00ff2a",
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        
+        "panel.border": "#036600",
+        "panel.background": "#1e1f1c",
+        "panelTitle.activeForeground": "#00ff2a",
+        "panelTitle.inactiveForeground": "#036600",
+        
         "titleBar.activeBackground": "#151614",
         "titleBar.activeForeground": "#e7e7e7",
         "titleBar.inactiveBackground": "#353533",
         "titleBar.inactiveForeground": "#e7e7e799",
-        "editorGroup.border": "#00ff2a",
-        "panel.border": "#00ff2a",
-        "sash.hoverBorder": "#00ff2a",
-        "sideBar.border": "#00ff2a",
-        "statusBarItem.remoteBackground": "#00ff2a",
-        "statusBarItem.remoteForeground": "#e7e7e7"
+        "titleBar.border": "#00ff2a",
+        
+        "editorGroup.border": "#036600",
+        "editorGroupHeader.tabsBackground": "#1e1f1c",
+        "editor.selectionBackground": "#b3ff0042",
+        "editor.background": "#1e1f1c",
+        
+        "sideBar.border": "#036600",
+        "sideBar.background": "#1e1f1c",
+        
+        "tab.activeBorder": "#036600",
+        "tab.inactiveBackground": "#1e1f1c",
+        "tab.activeBackground": "#036600",
+        "tab.activeForeground": "#00ff2a",
+        "tab.inactiveForeground": "#036600",
+        "tab.border": "#036600",
+
+		"gitDecoration.modifiedResourceForeground": "#ff6176",
+        
+        "terminal.tab.activeBorder": "#00ff2a",
+        "sash.hoverBorder": "#036600",
+        "breadcrumb.background": "#036600",
+        "menu.border": "#1e1f1c",
+        "contrastBorder": "#036600",
+        "editorRuler.foreground": "#036600"
     }
 }
