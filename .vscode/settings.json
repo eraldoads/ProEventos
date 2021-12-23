@@ -42,7 +42,7 @@
         "tab.inactiveForeground": "#036600",
         "tab.border": "#036600",
 
-		"gitDecoration.modifiedResourceForeground": "#ff6176",
+	"gitDecoration.modifiedResourceForeground": "#ff6176",
         
         "terminal.tab.activeBorder": "#00ff2a",
         "sash.hoverBorder": "#036600",
