@@ -1,8 +1,96 @@
-<h1>Eventos do Components</h1>
+<h2>Eventos</h2>
 
 <!-- [Aula.204] → Após Utilizar a interpolação → {{}} para a diretiva ngFor-->
-<div *ngFor="let evento of eventos">
+<!-- <div *ngFor="let evento of eventos">
   <p><b>Tema:</b> {{evento.tema}}</p>
   <p><b>Local:</b> {{evento.local}}</p>
   <hr>
+</div> -->
+
+<hr>
+
+<!-- [Aula.46] → Para que o Two-Way Data Binding funcionasse foi preciso alterar a tag
+<form> por <div>. -->
+<!-- <form action="" class="form-inline"> -->
+<div action="" class="form-inline">
+  <div class="input-group input-group-sm mb-3">
+
+    <!-- [Aula.39] - Cria 2 componentes -->
+    <!-- [Aula.46] - Cria o Two-Way Data Binding para retirar o botão buscar -->
+    <span class="input-group-text" id="inputGroup-sizing-sm">Filtro</span>
+    <input
+      type="text"
+      class="form-control mr-2"
+      placeholder="Buscar"
+      [(ngModel)]="filtroLista"
+      >
+
+    <!-- <button class="btn btn-outline-success">Buscar</button> -->
+
+  </div>
 </div>
+
+<!-- [Aula.46] → Incluido a tag para realizar o teste de tudo que for digitado no <imput>
+  é apresentando nessa linha. -->
+<h4> Filtro: {{filtroLista}}</h4>
+
+<table class="table table-dark table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th>
+        <!-- [Aula.45] → Alterando para um botão que terá a função de apresentar ou ocultar as imagens. -->
+        <button type="button" class="btn btn btn-outline-light btn-sm"
+        (click)="alterarImagem()">
+        {{!exibirImagem ? 'Exibir' : 'Ocultar' }}
+        </button>
+      </th>
+      <th>#</th>
+      <th>Tema</th>
+      <th>Local</th>
+      <th>Data</th>
+      <th>Qtd Pessoas</th>
+      <th>Lote</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  <!-- [Aula.43] → Com *ngIf só vai ser apasentado se existir o evento e tiver itens (length). -->
+  <tbody *ngIf="eventos && eventos.length">
+    <!-- [Aula.42] → *ngfor é uma diretiva estrutural. Aqui é feito o Binding e Interpolação. -->
+    <!-- [Aula.47] → Alterado o eventos para eventosFiltrados para que a busca na Grid seja atualizada -->
+    <tr *ngFor="let evento of eventosFiltrados">
+      <td>
+        <!-- [Aula.44] → Associando o tamanho da imagem com o o Property Binding
+        Faz o Binding diteramente com as propriedades criada no eventos.component.ts -->
+        <!-- [Aula.45] → Alterando os nomes das propriedades e incluindo o collapse e o isAnimated
+        para apresentar ou esconder as imagens. -->
+        <img [collapse]="!exibirImagem"
+             [isAnimated]="true"
+        src="/assets/{{evento.imagemURL}}" alt=""
+        [style.width.px]="larguraImagem"
+        [style.margin.px]="margemImagem"
+        >
+      </td>
+      <!-- [Aula.42] → Aqui realiza o Interpolação que tem um Binding, ou seja, tem uma associação com eventos. -->
+      <td>{{evento.eventoId}}</td>
+      <td>{{evento.tema}}</td>
+      <td>{{evento.local}}</td>
+      <td>{{evento.dataEvento}}</td>
+      <td>{{evento.qtdPessoas}}</td>
+      <td>{{evento.lote}}</td>
+      <td>
+        <button type="button" class="btn btn-primary btn-sm me-2">Editar</button>
+        <button type="button" class="btn btn-danger btn-sm">Excluir</button>
+      </td>
+    </tr>
+  </tbody>
+  <tfoot *ngIf="!eventos.length">
+    <tr>
+      <td colspan="8" class="text-center">
+        <h4>Nenhum evento encontrado!</h4>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+
+<!-- Mostra informaçòes na tela sobre os eventos cadastrados. -->
+{{eventos | json}}

@@ -26,8 +26,40 @@ export class EventosComponent implements OnInit {
   ]
   /* #endregion */
 
-  // [Aula.205] → Criar uma propriedade
-  public eventos: any;
+  // [Aula.205] → Criar uma propriedade.
+  // [Aula.43] → Colocar o "[]" para que não apresente erro no "*ngIf="!eventos.length"" dessa forma atribuimos um valor vazio, alocando um espaço de memoria informando que é um array.
+  public eventos: any = [];
+
+  // [Aula.44] → Determinando a Largura e Margem da imagem.
+  // [Aula.45] → Alterado os nomes das propriedades e criando uma nova.
+  larguraImagem: number = 70;
+  margemImagem: number = 15;
+  exibirImagem: boolean = true;
+  // [Aula.46] → Cria uma nova propriedade.
+  // [Aula.47] → Altera a propriedade para uma privada.
+  private _filtroLista: string = '';
+  public eventosFiltrados: any = [];
+
+  // [Aula.47] → Cria os métodos GET e SET para não apresentar mais o erro no html.
+  public get filtroLista(): string {
+    return this._filtroLista;
+  }
+
+  public set filtroLista(value: string) {
+    this._filtroLista = value;
+    // [Aula.47] → Toda vez que é alterado o valor ele deve carregar novamente o eventos, aqui ele tem que receber os eventos filtrados.
+    this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
+  }
+
+  filtrarEventos(filtrarPor: string): any {
+    filtrarPor = filtrarPor.toLocaleLowerCase();
+    return this.eventos.filter(
+      (evento: { tema: string; local: string; }) =>
+      // [Aula.47] → Coloca os campos que deseja que sejam filtrados.
+      evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1 ||
+      evento.local.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+    )
+  }
 
   // [Aula.205] → Após inserir o HttpClientModule dentro do app.module.ts, injetamos o HttpCliente no construtor.
   constructor(private http: HttpClient) {}
@@ -38,10 +70,19 @@ export class EventosComponent implements OnInit {
     this.getEventos();
   }
 
+  // [Aula.45] → Cria o método que ira apresentar ou ocultar as imagens na tela.
+  alterarImagem() {
+    this.exibirImagem = !this.exibirImagem;
+  }
+
   // [Aula.205] → Criar um método
   public getEventos(): void {
     this.http.get('https://localhost:5001/api/eventos').subscribe(
-      (response) => (this.eventos = response),
+    // [Aula.47] → Trecho alterado para que quando a tela seja atualizada a Grid não fique vazia.
+    (response) => {
+        (this.eventos = response);
+        this.eventosFiltrados = this.eventos
+      },
       (error) => console.log(error)
     );
 
