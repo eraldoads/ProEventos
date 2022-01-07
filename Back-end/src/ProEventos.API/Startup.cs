@@ -12,7 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using ProEventos.API.Data;
+// using ProEventos.API.Data;
+using ProEventos.Persistence;
 
 namespace ProEventos.API
 {
@@ -35,7 +36,7 @@ namespace ProEventos.API
         public void ConfigureServices(IServiceCollection services)
         {
             // [Aula.192] → Após criar o context deve ser informado. Aqui informa qual o contexto que deverá ser utilizado.
-            services.AddDbContext<DataContext>(
+            services.AddDbContext<ProEventosContext>(
                 context => context.UseSqlite(Configuration.GetConnectionString("Default")) // [Aula.192] Faz a conexão como banco de dados.
             );
 

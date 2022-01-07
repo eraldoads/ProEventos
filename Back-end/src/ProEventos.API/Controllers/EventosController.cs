@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ProEventos.API.Data;
-using ProEventos.API.Models;
+//using ProEventos.API.Data;
+using ProEventos.Persistence;
+//using ProEventos.API.Models;
+using ProEventos.Domain;
 
 namespace ProEventos.API.Controllers
 {
@@ -45,12 +47,12 @@ namespace ProEventos.API.Controllers
          */
         /* #endregion */
 
-        private readonly DataContext _context;
+        private readonly ProEventosContext _context;
 
         /// <summary>
         /// [Aula.194] → Fazer a referencia do Contexto dentro do controller, recebe por parametro o contexto.
         /// </summary>
-        public EventosController(DataContext context)
+        public EventosController(ProEventosContext context)
         {
             _context = context;
         }
@@ -86,7 +88,8 @@ namespace ProEventos.API.Controllers
 
             // [Aula.194] → Retorna os eventos do banco de dados.
             return _context.Eventos.FirstOrDefault(
-                evento => evento.EventoId == id
+                //evento => evento.EventoId == id
+                evento => evento.Id == id
             );
         }
 

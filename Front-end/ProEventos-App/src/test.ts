@@ -23,4 +23,6 @@ getTestBed().initTestEnvironment(
 // Then we find all the tests.
 const context = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.
+// file deepcode ignore PureMethodReturnValueIgnored/test: <please specify a reason of ignoring this>
+// deepcode ignore PureMethodReturnValueIgnored/test: <please specify a reason of ignoring this>, deepcode ignore PureMethodReturnValueIgnored/test: <please specify a reason of ignoring this>, deepcode ignore PureMethodReturnValueIgnored/test: <please specify a reason of ignoring this>
 context.keys().map(context);
