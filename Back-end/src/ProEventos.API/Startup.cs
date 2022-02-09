@@ -1,19 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-// using ProEventos.API.Data;
+using ProEventos.Application;
+using ProEventos.Application.Contratos;
 using ProEventos.Persistence;
+// using ProEventos.API.Data;
+using ProEventos.Persistence.Contextos;
+using ProEventos.Persistence.Contratos;
 
 namespace ProEventos.API
 {
@@ -40,12 +37,21 @@ namespace ProEventos.API
                 context => context.UseSqlite(Configuration.GetConnectionString("Default")) // [Aula.192] Faz a conexão como banco de dados.
             );
 
-            services.AddControllers(); // [Aula.175] -> Aqui é onde informa que esta trabalhando com a arquiterua MVC. Chamada da "Controller".
-            // [Aula.175] -> Forma de dizer que vai utilizar o "Swagger" na aplicação.
+            services.AddControllers() // [Aula.175] -> Aqui é onde informa que esta trabalhando com a arquiterua MVC. Chamada da "Controller".
+                    // [Aula.72] → Forma de resolver o Loop Infinito.
+                    .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling =
+                        Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                    );
+
+            // [Aula.70] → Toda vez que for requisitado um IEventoService é para injetar o EventoService
+            services.AddScoped<IEventoService, EventoService>();
+            services.AddScoped<IGeralPersist, GeralPersist>();
+            services.AddScoped<IEventoPersist, EventoPersist>();
 
             // [Aula.206] -> Corrigindo o problema de CORS
             services.AddCors();
 
+            // [Aula.175] -> Forma de dizer que vai utilizar o "Swagger" na aplicação.
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProEventos.API", Version = "v1" });
