@@ -11,6 +11,7 @@ import { PalestrantesComponent } from './palestrantes/palestrantes.component';
 import { NavComponent } from './nav/nav.component';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse'; // [Aula.38] - NavBar.
+import { EventoService } from './services/evento.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,9 @@ import { CollapseModule } from 'ngx-bootstrap/collapse'; // [Aula.38] - NavBar.
     CollapseModule.forRoot(), // [Aula.38] - NavBar.
     FormsModule // [Aula.46] - Two-way Data Binding.
   ],
-  providers: [],
+  providers: [
+    EventoService // [Aula.80] → 3ª maneira de injetar o serviço.
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
