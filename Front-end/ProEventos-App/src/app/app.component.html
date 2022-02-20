@@ -1,8 +1,26 @@
 <app-nav></app-nav>
 
 <div class="container">
-  <app-eventos></app-eventos>
+  <!-- [Aula.94] → Como está sendo utilizado Rotas não é necessário utilizar as TAGs. -->
+  <!-- <app-eventos></app-eventos>
+  <app-contatos></app-contatos>
+  <app-dashboard></app-dashboard>
+  <app-perfil></app-perfil>
+  <app-palestrantes></app-palestrantes> -->
 
+  <!-- [Aula.94] → TAG que carrega as rotas -->
   <router-outlet></router-outlet>
 </div>
 
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="large"
+  color="#fff"
+  type="pacman"
+  [fullScreen]="true"
+  show="loading">
+
+  <!-- [Aula.88] → Coloquei o style com a cor dentro do SCSS para que não seja apresentado o erro do 'lint' -->
+  <p> Carregando... </p>
+
+</ngx-spinner>
